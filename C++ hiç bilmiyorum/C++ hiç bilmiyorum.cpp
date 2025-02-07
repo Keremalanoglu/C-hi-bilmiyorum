@@ -1,6 +1,8 @@
 ﻿#include <iostream>
 #include <vector>
 #include <string>
+#include <cstdlib>
+#include <ctime>
 
 using namespace std;
 
@@ -23,9 +25,6 @@ public:
 
 
  
-
-
-
 class animate : public entity
 {
 protected:
@@ -37,13 +36,21 @@ public:
 class monster :public animate
 {
 public:
-    int str;
-    monster(int str, int health, char symbol,)
-    {
-        _health = health;
-        symbol = '@';
-        
-    }
+    int _str;
+	monster(int str, int health)
+	{
+		_health = health;
+		_str = str;
+		_symbol = '*';
+
+	}
+	virtual void Display()
+	{
+		cout << "Entity properties:" << endl;
+		cout << "Type: monster" << endl;
+		cout << "Health: " << _health << endl;
+		cout << "Strength: " << _str << endl;
+	}
 };
 
 
@@ -153,16 +160,42 @@ public:
     {
         this->Set(new human("Donald", 100), 0, 0);
         this->Set(new human("Elon", 100), 1, 1);
-        this->Set(new human("Mark", 100), 2, 2);
-        this->Set(new human("Ayberk", 100), 3, );
+        this->Set(new human("Ayberk", 100),3,3);
+        
+		
+        
+        
+        
+        int size = 10;
+
+
+        for (int i = 0; i < 3; i++) {
+            int x = std::rand() % size;
+            int y = std::rand() % size;
+
+            if (this->IsEmpty(x, y)) {
+                this->Set(new monster(100, 100), x, y);
+            }
+
+
+
+        }
+
+            
+            
     }
+
 };
+
+
 
 int main()
 {
+	srand(time(0));
     room r(10, 10);
-    r.Display();
+    
     r.initialise();
     r.Display();
     return 0;
+
 }

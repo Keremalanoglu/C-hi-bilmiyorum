@@ -169,9 +169,12 @@ public:
         int size = 10;
 
 
-        for (int i = 0; i < 3; i++) {
-            int x = std::rand() % size;
-            int y = std::rand() % size;
+        for (int i = 0; i < 3; i++) {  // Loop to spawn 3 monsters
+            int x, y;
+            do {
+                x = std::rand() % size;
+                y = std::rand() % size;
+            } while (!this->IsEmpty(x, y));
 
             if (this->IsEmpty(x, y)) {
                 this->Set(new monster(100, 100), x, y);
@@ -179,6 +182,14 @@ public:
 
 
 
+		for (int i = 0; i < 2; i++) {  // Loop to spawn 2 holes
+			int x, y;
+			do {
+				x = std::rand() % size;
+				y = std::rand() % size;
+			} while (!this->IsEmpty(x, y));
+
+			this->Set(new hole(10), x, y);
         }
 
             
